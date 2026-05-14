@@ -88,7 +88,109 @@ int main() {
     //initialize the stack
     initialize_stack(&s);
 
+    // display instructions
+    show_instructions();
 
+    // loop to process user input
+    while (1) {
+        printf("\nEnter instruction: ");
+        scanf(" %c", &input);
+
+        switch (input)
+        {
+            case '?':
+                printf("\nEnter Number: ");
+                double value;
+                if (scanf(" %lf", &value) != 1) {
+                    fprintf(stderr, "Error: Invalid number input.\n");
+                    break;
+                }
+                push(&s, value);
+                print_stack(&s);
+                break;
+
+            case '+':
+                if (s.top < 1) {
+                    fprintf(stderr, "Error: Not enough operands for addition.\n");
+                    break;
+                }
+                
+                num1 = pop(&s);
+                num2 = pop(&s);
+                printf("Result of %.4f + %.4f = %.4f\n", num2, num1, num1 + num2);
+                push(&s, num1 + num2);
+                print_stack(&s);
+                break;
+
+            case '-':
+                if (s.top < 1) {
+                    fprintf(stderr, "Error: Not enough operands for subtraction.\n");
+                    break;
+                }
+                num1 = pop(&s);
+                num2 = pop(&s);
+                printf("Result of %.4f - %.4f = %.4f\n", num2, num1, num2 - num1);
+                push(&s, num2 - num1);
+                print_stack(&s);
+                break;
+            
+            case '*':
+                if (s.top < 1) {
+                    fprintf(stderr, "Error: Not enough operands for multiplication.\n");
+                    break;
+                }
+                num1 = pop(&s);
+                num2 = pop(&s);
+                printf("Result of %.4f * %.4f = %.4f\n", num2, num1, num1 * num2);
+                push(&s, num1 * num2);
+                print_stack(&s);
+                break;
+            
+            case '/':
+                if (s.top < 1) {
+                    fprintf(stderr, "Error: Not enough operands for division.\n");
+                    break;
+                }   
+                num1 = pop(&s);
+                num2 = pop(&s); 
+                if (num1 == 0) {
+                    fprintf(stderr, "Error: Division by zero is not allowed.\n");
+                    push(&s, num2);
+                    push(&s, num1); 
+                    break;
+                }
+                printf("Result of %.4f / %.4f = %.4f\n", num2, num1, num2 / num1);
+                push(&s, num2 / num1);
+                print_stack(&s);
+                break;
+                
+            case '=':
+                if (is_empty(&s)) {
+                    fprintf(stderr, "Error: Stack is empty. No result to display.\n");
+                    break;
+                }
+                printf("Top of Stack (Result): %.4f\n", peek(&s));
+                break;
+                
+            case 'p':
+                print_stack(&s);
+                break;
+
+            case 'q':
+                printf("Exiting the calculator. Goodbye!\n");
+                printf("Press Enter to exit...");
+                getchar(); 
+                getchar(); 
+                return 0;
+
+            default:
+                printf("Invalid instruction.\n");
+                show_instructions();
+                break;
+        }
+    }
+    printf("Exiting the calculator. Goodbye!\n");
 
     return 0;
+    
 }
