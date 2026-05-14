@@ -78,3 +78,17 @@ void show_instructions() {
     printf("  p  - Print Stack\n");
     printf("----------------------------------------\n");
 }
+
+
+int main() {
+    Stack s;
+    char input;
+    double num1=0, num2=0;
+
+    //initialize the stack
+    initialize_stack(&s);
+
+
+
+    return 0;
+}
