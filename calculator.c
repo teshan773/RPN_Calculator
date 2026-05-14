@@ -33,3 +33,48 @@ int push(Stack *s, double value) {
     s->data[++(s->top)] = value;
     return 1;
 }
+
+// pop a value from the stack
+double pop(Stack *s){
+    if (is_empty(s)){
+        fprintf(stderr, "Error: Stack underflow. Cannot pop from an empty stack.\n");
+        return 0;
+    }
+    double result = s->data[(s->top)--];
+    return result;
+}
+
+// get top value of the stack without removing it
+double peek(Stack *s) {
+    if (is_empty(s)) {
+        fprintf(stderr, "Error: Stack is empty. Cannot peek.\n");
+        return 0;
+    }
+    double result = s->data[s->top];
+    return result;
+}
+
+// print the current stack
+void print_stack(Stack *s) {
+    printf("Current Stack: ");
+    for (int i = s->top; i >= 0; i--) {
+        printf("%.4f ", s->data[i]);
+    }
+    printf("\n");
+}
+
+void show_instructions() {
+    printf("========================================\n");
+    printf("  Reverse Polish Notation Calculator\n");
+    printf("========================================\n");
+    printf("Instructions:\n");
+    printf("  ?  - Enter a number\n");
+    printf("  +  - Addition\n");
+    printf("  -  - Subtraction\n");
+    printf("  *  - Multiplication\n");
+    printf("  /  - Division\n");
+    printf("  =  - Print Result\n");
+    printf("  q  - Quit\n");
+    printf("  p  - Print Stack\n");
+    printf("----------------------------------------\n");
+}
