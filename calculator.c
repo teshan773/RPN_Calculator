@@ -23,3 +23,13 @@ int is_empty(Stack *s) {
 int is_full(Stack *s){
     return s->top == MAX_STACK_SIZE - 1;
 }
+
+// push a new value into the stack
+int push(Stack *s, double value) {
+    if (is_full(s)) {
+        fprintf(stderr, "Error: Stack overflow. Cannot push %.4f.\n", value);
+        return 0;
+    }
+    s->data[++(s->top)] = value;
+    return 1;
+}
